@@ -9,7 +9,7 @@ fetch(API_URL)
   })
   .then((data) => {
     let products = data.products;
-    console.log(products)
+    //console.log(products)
     products.map(product => {
       markUp += `
         <div class="col mb-5">

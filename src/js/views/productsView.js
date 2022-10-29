@@ -27,6 +27,7 @@ class ProductsView {
         <div class="col mb-5">
         <div class="card h-100">
           <!-- Product image-->
+          <h5 class="fw-bolder text-center pt-1">${product.brand}</h5>
           <img class="card-img-top" src="${product.images[0]}" alt="..." />
           <!-- Product details-->
           <div class="card-body p-4">
@@ -36,12 +37,12 @@ class ProductsView {
                   <h5 class="fw-bolder">${product.title}</h5>
                 </a>
                 <!-- Product price-->
-                $40.00 - $80.00
+                $${product.price}
             </div>
           </div>
           <!-- Product actions-->
-          <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
+          <div class="card-footer p-4 pt-0 border-top-0 bg-transparent text-center">
+            <div class="text-center btn btn-outline-dark mt-auto">Add to cart</div>
           </div>
         </div>
       </div>
@@ -52,3 +53,5 @@ class ProductsView {
 }
 
 export default new ProductsView();
+
+//<div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>

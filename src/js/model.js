@@ -2,7 +2,8 @@ import {API_URL} from './config.js';
 import {getJSON} from './helpers.js';
 
 export const state = {
-  products: []
+  products: [],
+  product: []
 };
 
 export const loadProducts = async function() {
@@ -14,3 +15,14 @@ export const loadProducts = async function() {
     console.log(err)
   }
 };
+
+export const loadProduct = async function(id) {
+  if (state.products.length === 0) {
+    return;
+  }
+
+  state.product = state.products.filter(p => {
+    return p.id === +id;
+  });
+
+}

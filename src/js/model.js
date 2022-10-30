@@ -3,7 +3,8 @@ import {getJSON} from './helpers.js';
 
 export const state = {
   products: [],
-  product: []
+  product: [],
+  numOfCartItems: 1
 };
 
 export const loadProducts = async function() {

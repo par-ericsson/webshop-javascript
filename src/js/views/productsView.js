@@ -8,13 +8,14 @@ class ProductsView {
     this.#data = data;
     const markUp = this.#generateMarkup();
     //console.log(markUp)
+    this.#parentElement.innerHTML = '';
     this.#parentElement.insertAdjacentHTML('afterbegin', markUp);
   }
 
   // Publisher
   addHandlerRender(handler) {
     this.#loadButton.addEventListener('click', handler);
-    window.addEventListener('hashchange', handler);
+    //window.addEventListener('hashchange', handler);
     //window.addEventListener('load', handler);
   }
 

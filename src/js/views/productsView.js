@@ -19,9 +19,21 @@ class ProductsView {
     //window.addEventListener('load', handler);
   }
 
+  addHandlerUpdateCart(handler) {
+    this.#parentElement.addEventListener('click', function(evt) {
+      const updateCartBtn = evt.target.closest('.addto-cart');
+      if (!updateCartBtn) {
+        return;
+      }
+      const id = +updateCartBtn.dataset.add;
+      
+      handler(id);
+    })
+  }
+
   #generateMarkup() {
-    console.log('Inside view')
-    console.log(this.#data)
+    //console.log('Inside view')
+    //console.log(this.#data)
     let markUp = '';
     this.#data.map(product => {
       markUp += `
@@ -43,7 +55,9 @@ class ProductsView {
           </div>
           <!-- Product actions-->
           <div class="card-footer p-4 pt-0 border-top-0 bg-transparent text-center">
-            <div class="text-center btn btn-outline-dark mt-auto">Add to cart</div>
+            <button class="text-center btn btn-outline-dark mt-auto addto-cart" data-add='${product.id}'>
+              Add to cart
+            </button>
           </div>
         </div>
       </div>

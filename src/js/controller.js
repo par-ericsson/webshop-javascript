@@ -41,24 +41,26 @@ const controlCartView = function() {
 
 const controlCartDetailView = async function() {
   try {
-    // Getting the hash
     const hash = window.location.hash.slice(1); 
     if (!hash === 'cart') {
       return;
     }
-    // Load products
-    //await model.loadProducts();
 
-    //Render products
-    cartDetailView.render();
+    cartDetailView.render(model.state.cartItems);
   } catch (err) {
     console.log(err)
   }
 }
 
+const controlAddItemToCart = async function(id) {
+  model.addItemToCart(id);
+  cartView.render(model.state.numOfCartItems);
+}
+
 const init = function() {
   // Subscriber
   productsView.addHandlerRender(controlProducts);
+  productsView.addHandlerUpdateCart(controlAddItemToCart);
   productDetailView.addHandlerRender(controlProductDetail);
   controlCartView();
   cartDetailView.addHandlerRender(controlCartDetailView);

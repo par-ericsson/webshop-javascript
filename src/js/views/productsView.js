@@ -15,7 +15,7 @@ class ProductsView {
   // Publisher
   addHandlerRender(handler) {
     this.#loadButton.addEventListener('click', handler);
-    //window.addEventListener('hashchange', handler);
+    window.addEventListener('hashchange', handler);
     //window.addEventListener('load', handler);
   }
 

@@ -4,8 +4,9 @@ import {getJSON} from './helpers.js';
 export const state = {
   products: [],
   product: [],
-  numOfCartItems: 1,
-  cartItems: []
+  numOfCartItems: 0,
+  cartItems: [],
+  cartTotalPrice: 0
 };
 
 export const loadProducts = async function() {
@@ -14,7 +15,7 @@ export const loadProducts = async function() {
     state.products = data.products;
     
   } catch (err) {
-    console.log(err)
+    console.log(err);
   }
 };
 
@@ -29,12 +30,15 @@ export const loadProduct = async function(id) {
 }
 
 export const addItemToCart = async function(id) {
-  // todo check if item alread exists, then increase quantity
   const product = state.products.find(p => p.id === id);
   if (!product) {
-    return
+    return;
   }
 
   state.cartItems.push(product);
   state.numOfCartItems = state.numOfCartItems + 1;
+  state.cartTotalPrice = state.cartItems.reduce((prev, curr) => {
+    return prev + curr.price;
+  }, 0);
+
 }

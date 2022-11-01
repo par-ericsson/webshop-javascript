@@ -6,6 +6,10 @@ import cartDetailView from './views/cartDetailView.js';
 
 const controlProducts = async function() {
   try {
+    const id = window.location.hash.slice(1); //without hash symbol
+    if (id) {
+      return;
+    }
     // Load products
     if (model.state.products.length === 0) {
       //console.log('Loading products');
@@ -46,7 +50,7 @@ const controlCartDetailView = async function() {
       return;
     }
 
-    cartDetailView.render(model.state.cartItems);
+    cartDetailView.render(model.state.cartItems, model.state.cartTotalPrice);
   } catch (err) {
     console.log(err)
   }
@@ -62,6 +66,7 @@ const init = function() {
   productsView.addHandlerRender(controlProducts);
   productsView.addHandlerUpdateCart(controlAddItemToCart);
   productDetailView.addHandlerRender(controlProductDetail);
+  productDetailView.addHandlerRender(controlAddItemToCart);
   controlCartView();
   cartDetailView.addHandlerRender(controlCartDetailView);
 };

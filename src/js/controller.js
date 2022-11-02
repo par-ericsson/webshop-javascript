@@ -10,6 +10,7 @@ const controlProducts = async function() {
     if (id) {
       return;
     }
+    productsView.renderSpinner();
     // Load products
     if (model.state.products.length === 0) {
       //console.log('Loading products');
@@ -56,6 +57,12 @@ const controlCartDetailView = async function() {
   }
 }
 
+const controlUpdateCartQuantity = async function(newQuantity, productId) {
+  //console.log(newQuantity + ' : ' + productId)
+  model.updateCartQuantity(newQuantity, productId);
+  cartDetailView.render(model.state.cartItems, model.state.cartTotalPrice);
+}
+
 const controlAddItemToCart = async function(id) {
   model.addItemToCart(id);
   cartView.render(model.state.numOfCartItems);
@@ -69,6 +76,7 @@ const init = function() {
   productDetailView.addHandlerRender(controlAddItemToCart);
   controlCartView();
   cartDetailView.addHandlerRender(controlCartDetailView);
+  cartDetailView.addHandlerUpdateQuantity(controlUpdateCartQuantity);
 };
 
 init();

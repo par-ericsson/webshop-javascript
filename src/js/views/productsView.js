@@ -31,6 +31,12 @@ class ProductsView {
     })
   }
 
+  renderSpinner() {
+    const markUp = `<span class="loader"></span>`;
+    this.#parentElement.innerHTML = '';
+    this.#parentElement.insertAdjacentHTML('afterbegin', markUp);
+  }
+
   #generateMarkup() {
     //console.log('Inside view')
     //console.log(this.#data)

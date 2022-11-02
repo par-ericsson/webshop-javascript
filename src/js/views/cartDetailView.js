@@ -16,6 +16,20 @@ class CartDetailView {
     this.#loadButton.addEventListener('click', handler);
   }
 
+  addHandlerUpdateQuantity(handler) {
+    this.#parentElement.addEventListener('click', function(evt) {
+      const btn = evt.target.closest('.btn-update-qty');
+      if (!btn) {
+        return;
+      }
+      const newQty= +btn.dataset.updateqty;
+      const productId = +btn.dataset.id;
+      if (newQty > 0) {
+        handler(newQty, productId);
+      }
+    });
+  }
+
   #generateMarkup() {
     let markUp = `
         <div class="card">
@@ -62,9 +76,9 @@ class CartDetailView {
               </div>
               <div class="col">
                 <div class="d-grid gap-2 d-md-block">
-                  <button type="button" class="btn btn-dark btn-sm">-</button>
-                  1
-                  <button type="button" class="btn btn-dark btn-sm">+</button>
+                  <button type="button" class="btn btn-dark btn-sm btn-update-qty" data-id="${product.id}" data-updateqty="${product.quantity - 1}">-</button>
+                  ${product.quantity}
+                  <button type="button" class="btn btn-dark btn-sm btn-update-qty" data-id="${product.id}" data-updateqty="${product.quantity + 1}">+</button>
                 </div>
               </div>
               <div class="col">&dollar; ${product.price}</div>

@@ -13,6 +13,10 @@ export const loadProducts = async function() {
   try {
     const data = await getJSON(`${API_URL}`)
     state.products = data.products;
+    // Add quantity to every object
+    state.products.map(product => {
+      product.quantity = 1;
+    });
     
   } catch (err) {
     console.log(err);
@@ -40,5 +44,12 @@ export const addItemToCart = async function(id) {
   state.cartTotalPrice = state.cartItems.reduce((prev, curr) => {
     return prev + curr.price;
   }, 0);
+}
 
+export const updateCartQuantity = async function(qty, id) {
+  const product = state.cartItems.find(p => p.id === id);
+  product.quantity = qty;
+  state.cartTotalPrice = state.cartItems.reduce((prev, curr) => {
+    return prev + (curr.price * curr.quantity);
+  }, 0);
 }

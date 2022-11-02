@@ -1,4 +1,4 @@
-const API_URL = 'https://dummyjson.com/products';
+/* const API_URL = 'https://dummyjson.com/products';
 
 const parentElement = document.querySelector('.products');
 
@@ -40,3 +40,4 @@ fetch(API_URL)
   .catch(function(error) {
     console.log(error);
   });
+ */

@@ -51,7 +51,7 @@ const controlCartDetailView = async function() {
       return;
     }
 
-    cartDetailView.render(model.state.cartItems, model.state.cartTotalPrice);
+    cartDetailView.render(model.state.cart.cartItems, model.state.cart.cartTotalPrice);
   } catch (err) {
     console.log(err)
   }
@@ -60,12 +60,12 @@ const controlCartDetailView = async function() {
 const controlUpdateCartQuantity = async function(newQuantity, productId) {
   //console.log(newQuantity + ' : ' + productId)
   model.updateCartQuantity(newQuantity, productId);
-  cartDetailView.render(model.state.cartItems, model.state.cartTotalPrice);
+  cartDetailView.render(model.state.cart.cartItems, model.state.cart.cartTotalPrice);
 }
 
 const controlAddItemToCart = async function(id) {
   model.addItemToCart(id);
-  cartView.render(model.state.numOfCartItems);
+  cartView.render(model.state.cart.numOfCartItems);
 }
 
 const init = function() {

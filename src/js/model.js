@@ -4,9 +4,11 @@ import {getJSON} from './helpers.js';
 export const state = {
   products: [],
   product: [],
-  numOfCartItems: 0,
-  cartItems: [],
-  cartTotalPrice: 0
+  cart: {
+    cartItems: [],
+    numOfCartItems: 0,
+    cartTotalPrice: 0
+  }
 };
 
 export const loadProducts = async function() {
@@ -39,17 +41,17 @@ export const addItemToCart = async function(id) {
     return;
   }
 
-  state.cartItems.push(product);
-  state.numOfCartItems = state.numOfCartItems + 1;
-  state.cartTotalPrice = state.cartItems.reduce((prev, curr) => {
+  state.cart.cartItems.push(product);
+  state.cart.numOfCartItems = state.cart.numOfCartItems + 1;
+  state.cart.cartTotalPrice = state.cart.cartItems.reduce((prev, curr) => {
     return prev + curr.price;
   }, 0);
 }
 
 export const updateCartQuantity = async function(qty, id) {
-  const product = state.cartItems.find(p => p.id === id);
+  const product = state.cart.cartItems.find(p => p.id === id);
   product.quantity = qty;
-  state.cartTotalPrice = state.cartItems.reduce((prev, curr) => {
+  state.cart.cartTotalPrice = state.cart.cartItems.reduce((prev, curr) => {
     return prev + (curr.price * curr.quantity);
   }, 0);
 }

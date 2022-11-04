@@ -41,7 +41,7 @@ const controlProductDetail = async function() {
 }
 
 const controlCartView = function() {
- cartView.render(model.state.numOfCartItems);
+ cartView.render(model.state.cart.numOfCartItems);
 }
 
 const controlCartDetailView = async function() {

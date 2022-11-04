@@ -46,6 +46,8 @@ export const addItemToCart = async function(id) {
   state.cart.cartTotalPrice = state.cart.cartItems.reduce((prev, curr) => {
     return prev + curr.price;
   }, 0);
+
+  persistCart();
 }
 
 export const updateCartQuantity = async function(qty, id) {
@@ -54,4 +56,20 @@ export const updateCartQuantity = async function(qty, id) {
   state.cart.cartTotalPrice = state.cart.cartItems.reduce((prev, curr) => {
     return prev + (curr.price * curr.quantity);
   }, 0);
+
+  persistCart();
 }
+
+// functions for set and retrieve cart from localStorage
+const persistCart = function() {
+  localStorage.setItem('cart',JSON.stringify(state.cart));
+};
+
+const init = function() {
+  const cart = localStorage.getItem('cart');
+  if (cart) {
+    state.cart = JSON.parse(cart);
+  }
+};
+
+init();

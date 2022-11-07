@@ -1,6 +1,7 @@
 class CartDetailView {
   #loadButton = document.querySelector('.cart--button');
   #parentElement = document.querySelector('.products');
+  // product
   #data;
   #totalPrice;
 
@@ -14,6 +15,18 @@ class CartDetailView {
   
   addHandlerRender(handler) {
     this.#loadButton.addEventListener('click', handler);
+  }
+
+  addDeleteCartItemHandler(handler) {
+    this.#parentElement.addEventListener('click', function(evt) {
+      const btn = evt.target.closest('.delete-cart-item');
+      if (!btn) {
+        return;
+      }
+      const productId = +btn.dataset.id;
+  
+      handler(productId);
+    });
   }
 
   addHandlerUpdateQuantity(handler) {
@@ -46,14 +59,9 @@ class CartDetailView {
             </div>
             <div class="col-md-4 summary">
                 <div><h5><b>Summary</b></h5></div>
-                <hr>
-                <form>
-                    <p>SHIPPING</p>
-                    <select><option class="text-muted">Standard-Delivery- &dollar;2.00</option></select>
-                </form>
                 <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
                     <div class="col">Total Price</div>
-                    <div class="col text-right">&dollar; ${this.#totalPrice}</div>
+                    <div class="col text-right font-weight-bold">&dollar; ${this.#totalPrice}</div>
                 </div>
                 <button class="btn">CHECKOUT</button>
             </div>
@@ -79,9 +87,9 @@ class CartDetailView {
                   <button type="button" class="btn btn-dark btn-sm btn-update-qty" data-id="${product.id}" data-updateqty="${product.quantity - 1}">-</button>
                   ${product.quantity}
                   <button type="button" class="btn btn-dark btn-sm btn-update-qty" data-id="${product.id}" data-updateqty="${product.quantity + 1}">+</button>
+                  <button class="btn ms-5 delete-cart-item" data-id="${product.id}"><i class="fa-solid fa-trash"></i></button>
                 </div>
               </div>
-              <div class="col">&dollar; ${product.price}</div>
           </div>
         </div>
       `;

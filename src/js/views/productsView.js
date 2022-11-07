@@ -75,4 +75,3 @@ class ProductsView {
 
 export default new ProductsView();
 
-//<div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>

@@ -53,6 +53,21 @@ export const addItemToCart = async function(id) {
 export const updateCartQuantity = async function(qty, id) {
   const product = state.cart.cartItems.find(p => p.id === id);
   product.quantity = qty;
+  // todo: need to check somehow if it is - or +
+  state.cart.numOfCartItems = state.cart.numOfCartItems + 1;
+  state.cart.cartTotalPrice = state.cart.cartItems.reduce((prev, curr) => {
+    return prev + (curr.price * curr.quantity);
+  }, 0);
+
+  persistCart();
+}
+
+export const deleteCartItem = async function(id) {
+  const product = state.cart.cartItems.find(p => p.id === id);
+  state.cart.cartItems = state.cart.cartItems.filter(p => {
+    return p.id !== id;
+  });
+  state.cart.numOfCartItems = state.cart.numOfCartItems - product.quantity;
   state.cart.cartTotalPrice = state.cart.cartItems.reduce((prev, curr) => {
     return prev + (curr.price * curr.quantity);
   }, 0);

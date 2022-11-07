@@ -6,6 +6,7 @@ import cartDetailView from './views/cartDetailView.js';
 
 const controlProducts = async function() {
   try {
+    // Getting the hash
     const id = window.location.hash.slice(1); //without hash symbol
     if (id) {
       return;
@@ -25,8 +26,7 @@ const controlProducts = async function() {
 
 const controlProductDetail = async function() {
   try {
-    // Getting the hash
-    const id = window.location.hash.slice(1); //without hash symbol
+    const id = window.location.hash.slice(1); 
     if (!id || id === 'cart') {
       return;
     }
@@ -61,6 +61,7 @@ const controlUpdateCartQuantity = async function(newQuantity, productId) {
   //console.log(newQuantity + ' : ' + productId)
   model.updateCartQuantity(newQuantity, productId);
   cartDetailView.render(model.state.cart.cartItems, model.state.cart.cartTotalPrice);
+  cartView.render(model.state.cart.numOfCartItems);
 }
 
 const controlAddItemToCart = async function(id) {
@@ -68,8 +69,14 @@ const controlAddItemToCart = async function(id) {
   cartView.render(model.state.cart.numOfCartItems);
 }
 
+const controlDeleteItemFromCart = async function(id) {
+  model.deleteCartItem(id);
+  cartDetailView.render(model.state.cart.cartItems, model.state.cart.cartTotalPrice);
+  cartView.render(model.state.cart.numOfCartItems);
+}
+
 const init = function() {
-  // Subscriber
+  // Subscribers
   productsView.addHandlerRender(controlProducts);
   productsView.addHandlerUpdateCart(controlAddItemToCart);
   productDetailView.addHandlerRender(controlProductDetail);
@@ -77,6 +84,7 @@ const init = function() {
   controlCartView();
   cartDetailView.addHandlerRender(controlCartDetailView);
   cartDetailView.addHandlerUpdateQuantity(controlUpdateCartQuantity);
+  cartDetailView.addDeleteCartItemHandler(controlDeleteItemFromCart);
 };
 
 init();

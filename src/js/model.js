@@ -8,7 +8,8 @@ export const state = {
     cartItems: [],
     numOfCartItems: 0,
     cartTotalPrice: 0
-  }
+  },
+  deletedProduct: {}
 };
 
 export const loadProducts = async function() {
@@ -35,6 +36,14 @@ export const loadProduct = async function(id) {
   });
 }
 
+export const deleteProduct = async function(productId) {
+  try {
+    const deletedProduct = await getJSON(`${API_URL}/${productId}`)
+    state.deletedProduct = deletedProduct;
+  } catch (err) {
+    console.log(err);
+  }
+};
 export const addItemToCart = async function(id) {
   const product = state.products.find(p => p.id === id);
   if (!product) {

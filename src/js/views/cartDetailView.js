@@ -1,6 +1,7 @@
 class CartDetailView {
   #loadButton = document.querySelector('.cart--button');
   #parentElement = document.querySelector('.products');
+  #adminElement = document.querySelector('.admin-content');
   // product
   #data;
   #totalPrice;
@@ -10,6 +11,7 @@ class CartDetailView {
     this.#totalPrice = totalPrice;
     const markUp = this.#data.length === 0 ? this.#generateMarkupEmpty() : this.#generateMarkup();
     this.#parentElement.innerHTML = '';
+    this.#adminElement.innerHTML = '';
     this.#parentElement.insertAdjacentHTML('afterbegin', markUp);
   }
   

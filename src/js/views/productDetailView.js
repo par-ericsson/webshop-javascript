@@ -1,5 +1,6 @@
 class ProductDetailsView {
   #parentElement = document.querySelector('.products');
+  #adminElement = document.querySelector('.admin-content');
   #product;
   
   render(data) {
@@ -7,6 +8,7 @@ class ProductDetailsView {
     const markUp = this.#generateMarkup();
     //console.log(markUp)
     this.#parentElement.innerHTML = '';
+    this.#adminElement.innerHTML = '';
     this.#parentElement.insertAdjacentHTML('afterbegin', markUp);
   }
 

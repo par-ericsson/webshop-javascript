@@ -2,6 +2,7 @@ class ProductsView {
   // button for testing
   #loadButton = document.querySelector('.loadProducts');
   #parentElement = document.querySelector('.products');
+  #adminElement = document.querySelector('.admin-content');
   #data;
 
   render(data) {
@@ -9,6 +10,7 @@ class ProductsView {
     const markUp = this.#generateMarkup();
     //console.log(markUp)
     this.#parentElement.innerHTML = '';
+    this.#adminElement.innerHTML = '';
     this.#parentElement.insertAdjacentHTML('afterbegin', markUp);
   }
 

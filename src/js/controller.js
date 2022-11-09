@@ -3,6 +3,8 @@ import productsView from '../js/Views/ProductsView.js';
 import productDetailView from './views/productDetailView.js';
 import cartView from './views/cartView.js';
 import cartDetailView from './views/cartDetailView.js';
+import adminView from './Views/adminView.js';
+import deleteView from './views/deleteView.js';
 
 const controlProducts = async function() {
   try {
@@ -27,7 +29,7 @@ const controlProducts = async function() {
 const controlProductDetail = async function() {
   try {
     const id = window.location.hash.slice(1); 
-    if (!id || id === 'cart') {
+    if (!id || id === 'cart' || id === 'admin' || id.startsWith('deleteView')) {
       return;
     }
     // Load product
@@ -75,6 +77,30 @@ const controlDeleteItemFromCart = async function(id) {
   cartView.render(model.state.cart.numOfCartItems);
 }
 
+const controlAdminView =  async function() {
+  if (model.state.products.length === 0) {
+    await model.loadProducts();
+  }
+  
+  adminView.render(model.state.products);
+}
+
+const controlDeleteProduct = async function() {
+  try {
+    const id = window.location.hash.slice(1); 
+    if (!id.startsWith('deleteView')) {
+      return;
+    }
+    // Load product
+    //await model.loadProduct(id);
+    const productId = +id.slice(11);
+    await model.deleteProduct(productId);
+    deleteView.render(model.state.deletedProduct);
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 const init = function() {
   // Subscribers
   productsView.addHandlerRender(controlProducts);
@@ -85,6 +111,8 @@ const init = function() {
   cartDetailView.addHandlerRender(controlCartDetailView);
   cartDetailView.addHandlerUpdateQuantity(controlUpdateCartQuantity);
   cartDetailView.addDeleteCartItemHandler(controlDeleteItemFromCart);
+  adminView.addHandlerRender(controlAdminView);
+  deleteView.addHandlerRender(controlDeleteProduct);
 };
 
 init();

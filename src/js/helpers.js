@@ -19,3 +19,17 @@ export const getJSON = async function(url) {
       throw err;
   }
 }
+
+export const deleteProduct = async function(url) {
+  try {
+    const res = await Promise.race([fetch(url, { method: 'DELETE' }), timeout(10)]);
+    const data = await res.json();
+    if (!res.ok) {
+      throw new Error(`${data.message}`)
+    }
+
+    return data;
+  } catch(err) {
+      throw err;
+  }
+}

@@ -16,7 +16,7 @@ class EditView {
     const markUp = this.#generateResult();
     this.#parentElement.innerHTML = '';
     this.#adminElement.innerHTML = '';
-    this.#parentElement.insertAdjacentHTML('afterbegin', markUp);
+    this.#adminElement.insertAdjacentHTML('afterbegin', markUp);
   }
 
   addHandlerRender(handler) {
@@ -38,9 +38,10 @@ class EditView {
   #generateResult() {
     return `
       <div>
-        <h2>Edited Product</h2>
-        <h3>${this.#product.title}</h3>
-        <h3>${this.#product.price}</h3>
+        <h3>Note: this doesn't edit any products on the server, only returns the edited object!</h3>
+        <h2 style="color: #435d7d">Edited Product</h2>
+        <h3 style="color: #435d7d">Title: ${this.#product.title}</h3>
+        <h3 style="color: #435d7d">Price: $${this.#product.price}</h3>
       </div>
     `;
   }

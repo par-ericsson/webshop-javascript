@@ -53,8 +53,18 @@ export const addItemToCart = async function(id) {
   if (!product) {
     return;
   }
+  const productInCart = state.cart.cartItems.find(p => p.id === id);
+  // Product is already in cart
+  if (productInCart) {
+    const tempProducts = state.cart.cartItems.filter(p => p.id !== id);
+    productInCart.quantity = productInCart.quantity + 1;
+    tempProducts.push(productInCart);
+    state.cart.cartItems = tempProducts;
+  }
+  else {
+    state.cart.cartItems.push(product);
+  }
 
-  state.cart.cartItems.push(product);
   state.cart.numOfCartItems = state.cart.numOfCartItems + 1;
   state.cart.cartTotalPrice = state.cart.cartItems.reduce((prev, curr) => {
     return prev + curr.price;
@@ -63,11 +73,15 @@ export const addItemToCart = async function(id) {
   persistCart();
 };
 
-export const updateCartQuantity = async function(qty, id) {
+export const updateCartQuantity = async function(qty, id, accumulator) {
+  console.log(accumulator)
   const product = state.cart.cartItems.find(p => p.id === id);
   product.quantity = qty;
-  // todo: need to check somehow if it is - or +
-  state.cart.numOfCartItems = state.cart.numOfCartItems + 1;
+  
+  accumulator === 'positive' 
+    ? state.cart.numOfCartItems = state.cart.numOfCartItems + 1
+    : state.cart.numOfCartItems = state.cart.numOfCartItems - 1;
+
   state.cart.cartTotalPrice = state.cart.cartItems.reduce((prev, curr) => {
     return prev + (curr.price * curr.quantity);
   }, 0);

@@ -61,9 +61,9 @@ const controlCartDetailView = async function() {
   }
 };
 
-const controlUpdateCartQuantity = async function(newQuantity, productId) {
+const controlUpdateCartQuantity = async function(newQuantity, productId, accumulator) {
   //console.log(newQuantity + ' : ' + productId)
-  model.updateCartQuantity(newQuantity, productId);
+  model.updateCartQuantity(newQuantity, productId, accumulator);
   cartDetailView.render(model.state.cart.cartItems, model.state.cart.cartTotalPrice);
   cartView.render(model.state.cart.numOfCartItems);
 };

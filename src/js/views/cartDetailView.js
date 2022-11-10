@@ -39,8 +39,10 @@ class CartDetailView {
       }
       const newQty= +btn.dataset.updateqty;
       const productId = +btn.dataset.id;
+      const accumulator = btn.dataset.acc;
+      console.log(accumulator)
       if (newQty > 0) {
-        handler(newQty, productId);
+        handler(newQty, productId, accumulator);
       }
     });
   }
@@ -86,9 +88,9 @@ class CartDetailView {
               </div>
               <div class="col">
                 <div class="d-grid gap-2 d-md-block">
-                  <button type="button" class="btn btn-dark btn-sm btn-update-qty" data-id="${product.id}" data-updateqty="${product.quantity - 1}">-</button>
+                  <button type="button" class="btn btn-dark btn-sm btn-update-qty" data-acc="negative" data-id="${product.id}" data-updateqty="${product.quantity - 1}">-</button>
                   ${product.quantity}
-                  <button type="button" class="btn btn-dark btn-sm btn-update-qty" data-id="${product.id}" data-updateqty="${product.quantity + 1}">+</button>
+                  <button type="button" class="btn btn-dark btn-sm btn-update-qty" data-acc="positive" data-id="${product.id}" data-updateqty="${product.quantity + 1}">+</button>
                   <button class="btn ms-5 delete-cart-item" data-id="${product.id}"><i class="fa-solid fa-trash"></i></button>
                 </div>
               </div>
@@ -102,7 +104,7 @@ class CartDetailView {
   #generateMarkupEmpty() {
     return `
       <div>
-        <h3>No items!</h3>
+        <h3>No items in cart!</h3>
       </div>
     `;
   }

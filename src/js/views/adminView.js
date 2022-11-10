@@ -64,6 +64,7 @@ class AdminView {
           <td>${product.title}</td>
           <td>${product.price}</td>
           <td>
+            <a href="#edit/${product.id}">Edit</a>
             <a href="#deleteView/${product.id}">Delete</a>
           </td>
         </tr>

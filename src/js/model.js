@@ -1,5 +1,7 @@
 import {API_URL} from './config.js';
 import {getJSON} from './helpers.js';
+import {deleteProductJSON } from './helpers.js';
+import {editProductJSON} from './helpers.js';
 
 export const state = {
   products: [],
@@ -9,12 +11,13 @@ export const state = {
     numOfCartItems: 0,
     cartTotalPrice: 0
   },
-  deletedProduct: {}
+  deletedProduct: {},
+  editedProduct: {}
 };
 
 export const loadProducts = async function() {
   try {
-    const data = await getJSON(`${API_URL}`)
+    const data = await getJSON(`${API_URL}`);
     state.products = data.products;
     // Add quantity to every object
     state.products.map(product => {
@@ -34,16 +37,17 @@ export const loadProduct = async function(id) {
   state.product = state.products.filter(p => {
     return p.id === +id;
   });
-}
+};
 
 export const deleteProduct = async function(productId) {
   try {
-    const deletedProduct = await getJSON(`${API_URL}/${productId}`)
+    const deletedProduct =  await deleteProductJSON(`${API_URL}/${productId}`);
     state.deletedProduct = deletedProduct;
   } catch (err) {
     console.log(err);
   }
 };
+
 export const addItemToCart = async function(id) {
   const product = state.products.find(p => p.id === id);
   if (!product) {
@@ -57,7 +61,7 @@ export const addItemToCart = async function(id) {
   }, 0);
 
   persistCart();
-}
+};
 
 export const updateCartQuantity = async function(qty, id) {
   const product = state.cart.cartItems.find(p => p.id === id);
@@ -69,7 +73,7 @@ export const updateCartQuantity = async function(qty, id) {
   }, 0);
 
   persistCart();
-}
+};
 
 export const deleteCartItem = async function(id) {
   const product = state.cart.cartItems.find(p => p.id === id);
@@ -82,7 +86,17 @@ export const deleteCartItem = async function(id) {
   }, 0);
 
   persistCart();
-}
+};
+
+// Gets the product to be edited
+export const editProduct = async function(tempProduct) {
+  const product = state.products.find(p => p.id === +tempProduct.id);
+  product.title = tempProduct.title;
+  product.price = tempProduct.price; 
+  const editedProduct = await editProductJSON(`${API_URL}/${product.id}`, product)
+
+  state.editedProduct = editedProduct;
+};
 
 // functions for set and retrieve cart from localStorage
 const persistCart = function() {

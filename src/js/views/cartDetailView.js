@@ -102,7 +102,7 @@ class CartDetailView {
   #generateMarkupEmpty() {
     return `
       <div>
-        <p>No items!</p>
+        <h3>No items!</h3>
       </div>
     `;
   }

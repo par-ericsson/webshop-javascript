@@ -1,6 +1,4 @@
 class ProductsView {
-  // button for testing
-  #loadButton = document.querySelector('.loadProducts');
   #parentElement = document.querySelector('.products');
   #adminElement = document.querySelector('.admin-content');
   #data;
@@ -16,9 +14,8 @@ class ProductsView {
 
   // Publisher
   addHandlerRender(handler) {
-    this.#loadButton.addEventListener('click', handler);
     window.addEventListener('hashchange', handler);
-    //window.addEventListener('load', handler);
+    window.addEventListener('load', handler);
   }
 
   addHandlerUpdateCart(handler) {
@@ -34,7 +31,7 @@ class ProductsView {
   }
 
   renderSpinner() {
-    const markUp = `<span class="loader"></span>`;
+    const markUp = '<div class="lds-dual-ring"></div>';
     this.#parentElement.innerHTML = '';
     this.#parentElement.insertAdjacentHTML('afterbegin', markUp);
   }
